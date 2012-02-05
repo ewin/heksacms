@@ -8,9 +8,7 @@
         <th>Nama</th>
         <th>Jumlah</th>
         <th>Opsi</th>
-    </tr>
-
-    <!-- Here is where we loop through our $posts array, printing out post info -->
+    </tr> 
 
     <?php foreach ($stocks as $stock) : ?>
     <tr>
