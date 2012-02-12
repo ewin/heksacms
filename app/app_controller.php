@@ -1,80 +1,38 @@
-<?php
-class KordinatorsController extends AppController {
-    public $name = 'Kordinators';
-    public $helpers = array('html', 'Form');
-	public function index() {
-        $this->set('kordinators', $this->Kordinator->find('all', array(
-        'order' => array('nama' => 'asc')
-    )));
-    }
+<?php    
+
+
+class AppController extends Controller {
+	public $helpers = array('html');
 	
+	// function checkAdminSession() {
+		// // if the admin session hasn't been set
+		// if (!$this->Session->check('User')) {
+			// // set flash message and redirect
+			// $this->Session->setFlash('You need to be logged in to access this area');
+			// $this->redirect('/users/login/');
+			// exit();
+		// }
+	// }
+	
+	// /**
+	 // * prints out an array
+	 // */
 	function pa($arr) {
 		echo '<pre>';
 		print_r($arr);
 		echo '</pre>';
 	}
 	
-	//fungsi tambah
-	public function add() {
-        
-		if ($this->request->is('post')) { 
-		$fileOK = $this->uploadFiles('img/files', $this->data['Kordinator']); 
-		$asas= $this->data ;
-		$asas['Kordinator']['photo'] = $fileOK['urls'][0];
-			
-		 
-		// $this->pa($fileOK); 
-		// $this->pa($asas);
-	
-			
-           if ($this->Kordinator->save($asas)) {
-               $this->Session->setFlash('data telah tersimpan.');
-                $this->redirect(array('action' => 'index'));
-           } else {
-               $this->Session->setFlash('tidak dapat menyimpan data.');
-            }
-        }
-    }
-	
-	
-	
-	//edit
-	function edit($id = null) {
-    $this->Kordinator->id = $id;
-    if ($this->request->is('get')) {
-        $this->request->data = $this->Kordinator->read();
-    } else {
-        if ($this->Kordinator->save($this->request->data)) {
-            $this->Session->setFlash('Data telah diperbahrui.');
-            $this->redirect(array('action' => 'index'));
-        } else {
-            $this->Session->setFlash('Tidak dapat memperbahrui data.');
-        }
-    }
-	}
-	//view
-	function view($id = null) {
-	$this->set('kordinators', $this->Kordinator->find('first', array('conditions' => array('id' => $id)
-    )));
-    // $this->Kordinator->id = $id;
-    // if ($this->request->is('get')) {
-        // $this->request->data = $this->Kordinator->read();
-    // } 
-	}
-	//delete
-	function delete($id) {
-		if ($this->request->is('get')) {
-			throw new MethodNotAllowedException();
-		}
-		if ($this->Kordinator->delete($id)) {
-			$this->Session->setFlash('Koordinator dengan ID ' . $id . ' dan Nama ' .$nama.' telah dihapus.');
-			$this->redirect(array('action' => 'index'));
-		}
-	}
-	
-	
-	///-------------------------
-	function uploadFiles($folder, $formdata, $itemId = null) {
+/**
+ * uploads files to the server
+ * @params:
+ *		$folder 	= the folder to upload the files e.g. 'img/files'
+ *		$formdata 	= the array containing the form files
+ *		$itemId 	= id of the item (optional) will create a new sub folder
+ * @return:
+ *		will return an array with the success of each file upload
+ */
+function uploadFiles($folder, $formdata, $itemId = null) {
 	// setup dir names absolute and relative
 	$folder_url = WWW_ROOT.$folder;
 	$rel_url = $folder;
@@ -100,7 +58,7 @@ class KordinatorsController extends AppController {
 	$permitted = array('image/gif','image/jpeg','image/pjpeg','image/png');
 	
 	// loop through and deal with the files
-	foreach($formdata  as $file) {
+	foreach($formdata as $file) {
 		// replace spaces with underscores
 		$filename = str_replace(' ', '_', $file['name']);
 		// assume filetype is false
@@ -141,7 +99,6 @@ class KordinatorsController extends AppController {
 						$result['errors'][] = "Error uploaded $filename. Please try again.";
 					}
 					break;
- 
 				case 3:
 					// an error occured
 					$result['errors'][] = "Error uploading $filename. Please try again.";
@@ -161,5 +118,5 @@ class KordinatorsController extends AppController {
 	}
 return $result;
 }
-
 }
+?>

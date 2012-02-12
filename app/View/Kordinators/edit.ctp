@@ -1,6 +1,6 @@
 <!-- File: /app/View/Posts/edit.ctp -->
 
-<h1>Ubah Keterangan Kordinator</h1>
+<h1>Ubah Keterangan Kordinator</h1><?php echo $this->Html->link('Kembali', array('controller' => 'kordinators', 'action' => 'index')); ?>
 <?php
     echo $this->Form->create('Kordinator', array('action' => 'edit'));
     echo $this->Form->input('nama');
@@ -9,5 +9,5 @@
 	echo $this->Form->input('jk');
 	echo $this->Form->input('no_ktp');
     echo $this->Form->input('id', array('type' => 'hidden'));
-    echo $this->Form->end('Simpan');
+    echo $this->Form->end('Simpan');?>
 	

@@ -1,6 +1,6 @@
 <!-- File: /app/View/Posts/add.ctp -->
 
-<h1>Tambah Jenis Barang</h1>
+<h1>Tambah Jenis Barang</h1><?php echo $this->Html->link('Kembali', array('action' => 'index'));?>
 <?php
 echo $this->Form->create('Stock');
 echo $this->Form->input('nama_barang');
