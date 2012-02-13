@@ -18,12 +18,12 @@ class KordinatorsController extends AppController {
 	public function add() {
         
 		if ($this->request->is('post')) { 
-		$fileOK = $this->uploadFiles('img/files', $this->data['Kordinator']); 
+		$fileOK = $this->uploadFiles('img/files', $this->data['Photo']); 
 		$asas= $this->data ;
 		$asas['Kordinator']['photo'] = $fileOK['urls'][0];
 			
 		 
-		// $this->pa($fileOK); 
+		// $this->pa($this->data); 
 		// $this->pa($asas);
 	
 			
