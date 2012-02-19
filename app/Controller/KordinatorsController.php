@@ -20,8 +20,9 @@ class KordinatorsController extends AppController {
 		if ($this->request->is('post')) { 
 		$fileOK = $this->uploadFiles('img/files', $this->data['Photo']); 
 		$asas= $this->data ;
-		$asas['Kordinator']['photo'] = $fileOK['urls'][0];
-			
+		if(array_key_exists('urls', $fileOK)) {
+			$asas['Kordinator']['photo'] = $fileOK['urls'][0];
+		}	
 		 
 		// $this->pa($this->data); 
 		// $this->pa($asas);
@@ -67,7 +68,6 @@ class KordinatorsController extends AppController {
 			throw new MethodNotAllowedException();
 		}
 		if ($this->Kordinator->delete($id)) {
-			$this->Session->setFlash('Koordinator dengan ID ' . $id . ' dan Nama ' .$nama.' telah dihapus.');
 			$this->redirect(array('action' => 'index'));
 		}
 	}
